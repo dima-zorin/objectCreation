@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+
+<head>
+  <script data-semver="1.5.0" data-require="angular.js@*" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+  <script src="http://angular-ui.github.io/ui-router/release/angular-ui-router.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+  <script src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
+
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script>
+</head>
+
+<body ng-controller="MainController">
+  <div id="mainDiv" ng-cloak>
+    <md-content>
+      <md-tabs>
+        <md-tab ng-click="selectedElement.length = 0" id="tab1" ui-sref="index">
+          <md-tab-label>создание</md-tab-label>
+          <md-tab-body>
+            <br>
+            <form id="myForm" name="myForm">
+              <input type="text" placeholder="заголовок" name="name" ng-model="name" required>
+              <br>
+              <textarea placeholder="описание" ng-model="dscrptn"></textarea>
+              <br>
+              <input type="text" placeholder="адрес" name="address" ng-model="address" required>
+              <br>
+              <select id="category" name="category" ng-model="category" required>
+                <option value="">нет</option>
+                <option value="кино">кино</option>
+                <option value="музыка">музыка</option>
+                <option value="игры">игры</option>
+              </select>
+              <br>
+              <tags-input placeholder="добавить тег (enter)" ng-model="tagsS"></tags-input>
+              <br>
+              <input type="submit" value="Добавить" ng-click="addElement()">
+            </form>
+          </md-tab-body>
+        </md-tab>
+
+        <md-tab ng-click="selectedElement.length = 0" id="tab2" ui-sref="index">
+          <md-tab-label>вывод всех</md-tab-label>
+          <md-tab-body>
+            <div ng-hide="elementsList.length === 0">
+              <br>
+              <input type="text" placeholder="поиск..." ng-model="search" ng-change="pagesS()">
+              <br>
+              <select id="categoryC" name="categoryC" ng-model="categoryC" ng-change="pagesS()">
+                <option value=""></option>
+                <option value="кино">кино</option>
+                <option value="музыка">музыка</option>
+                <option value="игры">игры</option>
+              </select>
+              <br>
+              <table id="navigationTable">
+                <tr>
+                  <td ng-class="drawBorder($index)" ng-repeat="pagesNumber in pagesCounter">
+                    <div ng-bind="pagesNumber" ng-click="selectPage(this)"></div>
+                  </td>
+                </tr>
+              </table>
+              <br>
+              <div id="output" ng-repeat="element in filteredElementsList = (elementsList | filter:search | filter:categoryC) | startFrom:currentPage*perPageLimiter | limitTo:perPageLimiter">
+                <table>
+                  <tr>
+                    <td>
+                      <div class="centered pointer" valign="top" ng-bind="element.name" ng-click="openItem(this)"></div>
+                      <br>
+                      <div class="pointer" ng-bind="element.dscrptn | limitTo : 105" ng-click="openItem(this)"></div>
+                      <br>
+                      <div valign="bottom" class="centered" ng-bind="element.category"></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <button ng-click="editItem(this)">изменить</button>
+                      <button class="delete" ng-click="deleteItem(this)">удалить</button>
+                    </td>
+                  </tr>
+                </table>
+                <br>
+                <br>
+              </div>
+            </div>
+
+            <div id="edited">
+              <div id="editItem">
+                <form id="myFormEdit" name="myFormEdit">
+                  <input id="close" type="button" value="X" ng-click="closeEdit()" />
+                  <input id="save" type="button" value="сохранить" ng-click="saveEdit(this)" />
+                  <input id="test1" type="text" placeholder="заголовок" ng-value="editedElement.name" onclick="console.log(this)" ng-model="nameUpd" required/>
+                  <br>
+                  <textarea placeholder="описание" ng-bind="editedElement.dscrptn" ng-model="dscrptnUpd"></textarea>
+                  <br>
+                  <input type="text" placeholder="адрес" ng-value="editedElement.address" name="addressUpd" ng-model="addressUpd" required>
+                  <br>
+                  <select name="categoryUpd" ng-model="categoryUpd" required>
+                    <option value=""></option>
+                    <option value="кино">кино</option>
+                    <option value="музыка">музыка</option>
+                    <option value="игры">игры</option>
+                  </select>
+                  <br>
+                  <tags-input ng-model="editedElement.tagsS"></tags-input>
+                  <br />
+                  <br />
+                  <div class="body" ng-bind="body"></div>
+                </form>
+              </div>
+            </div>
+          </md-tab-body>
+        </md-tab>
+
+        <md-tab id="tab3" ui-sref="showOne">
+          <md-tab-label>выбран</md-tab-label>
+          <md-tab-body>
+            <div ng-hide="selectedElement.length === 0" id="selectedElement" style="width:50%" ui-view></div>
+          </md-tab-body>
+        </md-tab>
+      </md-tabs>
+    </md-content>
+  </div>
+</body>
+
+</html>

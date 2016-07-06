@@ -1,0 +1,101 @@
+.tabsdemoStaticTabs md-tab-content {
+  padding: 25px;
+}
+
+#mainDiv,
+md-content,
+md-tabs {
+  height: 100%;
+}
+
+input,
+select,
+textarea {
+  display: block;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+#output {
+  display: inline-block;
+  max-width: 30%;
+}
+
+button {
+  width: auto;
+}
+
+.delete {
+  background-color: #ff4d4d;
+}
+
+.centered {
+  position: relative;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+}
+
+#myForm,
+#selectedElement {
+  padding: 25px 50px 75px 100px;
+}
+
+#navigationTable tr td div {
+  width: 50px;
+  text-decoration: underline;
+  color: #0000ff;
+  cursor: pointer;
+  text-align: center;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.selectedCell {
+  background-color: #b38600;
+}
+
+table {
+  border: hidden;
+}
+
+#close {
+  float: right;
+  margin-right: -40px;
+  margin-top: -35px;
+}
+
+#save {
+  float: left;
+  margin-right: -40px;
+  margin-top: -35px;
+}
+
+
+#editItem {
+  cursor: default;
+  position: fixed;
+  left: 15%;
+  top: 25%;
+  width: 70%;
+  background-color: #ffffff;
+  padding: 10px;
+}
+
+#edited {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.55);
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}

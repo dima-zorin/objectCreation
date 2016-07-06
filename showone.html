@@ -1,0 +1,7 @@
+<table>
+  <tr ng-bind="'Название: ' + selectedElement.name"></tr>
+  <tr ng-hide="selectedElement.dscrptn === undefined" ng-bind="'Описание: ' + selectedElement.dscrptn"></tr>
+  <tr ng-bind="'Адрес: ' + selectedElement.address"></tr>
+  <tr ng-bind="'Категория: ' + selectedElement.category"></tr>
+  <tr ng-hide="selectedElement.tagsS.length === 0" ng-bind="'Теги: ' + selectedElement.tagsS"></tr>
+</table>
